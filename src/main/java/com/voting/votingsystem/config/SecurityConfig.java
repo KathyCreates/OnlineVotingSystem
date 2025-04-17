@@ -4,7 +4,6 @@ import com.voting.votingsystem.service.AppUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -23,9 +22,9 @@ public class SecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
-                        .loginPage("/login") // Використовуємо нашу сторінку логіну
-                        .defaultSuccessUrl("/user/dashboard", true) // після успішного входу на /dashboard
-                        .failureUrl("/login?error") // при помилці входу
+                        .loginPage("/login")  // Використовуємо нашу сторінку логіну
+                        .defaultSuccessUrl("/vote", true)  // Після успішного входу користувач потрапляє на сторінку голосування
+                        .failureUrl("/login?error")  // при помилці входу
                         .permitAll()
                 )
                 .logout(logout -> logout.logoutSuccessUrl("/login?logout").permitAll());
