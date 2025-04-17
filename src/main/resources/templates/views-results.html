@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <title>Results</title>
+  <title>Результати голосування</title>
 </head>
 <body>
-<h1>Results</h1>
+<h1>Результати голосування</h1>
 <table>
   <thead>
   <tr>
-    <th>Candidate Name</th>
-    <th>Votes</th>
+    <th>Кандидат</th>
+    <th>Кількість голосів</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="candidate : ${candidates}">
-    <td th:text="${candidate.name}"></td>
-    <td th:text="${${candidate.name}}"></td>  <!-- Виводимо кількість голосів -->
+  <tr th:each="entry : ${results}">
+    <td th:text="${entry.key}">Імʼя</td>
+    <td th:text="${entry.value}">0</td>
   </tr>
   </tbody>
 </table>

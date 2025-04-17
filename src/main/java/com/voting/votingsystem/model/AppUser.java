@@ -1,6 +1,7 @@
 package com.voting.votingsystem.model;
 
 import jakarta.persistence.*;
+import java.security.Principal;
 
 @Entity
 @Table(name = "app_user")

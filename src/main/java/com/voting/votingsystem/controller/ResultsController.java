@@ -8,7 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class ResultsController {
@@ -21,16 +23,15 @@ public class ResultsController {
 
     @GetMapping("/admin/results")
     public String viewResults(Model model) {
-        // Отримуємо всіх кандидатів з бази даних
         List<Candidate> candidates = candidateRepository.findAll();
-        model.addAttribute("candidates", candidates);
+        Map<String, Long> results = new HashMap<>();
 
-        // Проходимо по кандидатах і отримуємо кількість голосів для кожного
         for (Candidate candidate : candidates) {
             long votes = voteRepository.countByCandidate(candidate);
-            model.addAttribute(candidate.getName(), votes);
+            results.put(candidate.getName(), votes);
         }
 
-        return "view-results";  // Повертаємо сторінку для перегляду результатів
+        model.addAttribute("results", results);
+        return "views-results";
     }
 }

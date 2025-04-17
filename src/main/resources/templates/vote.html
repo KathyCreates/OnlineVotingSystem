@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
+    <meta charset="UTF-8">
     <title>Vote</title>
 </head>
 <body>
+
 <h1>Vote for your candidate</h1>
 
+<!-- Повідомлення -->
+<div th:if="${param.added}">
+    <p style="color:green;">Кандидата успішно додано. Ви можете проголосувати.</p>
+</div>
+
+<div th:if="${param.error == 'alreadyVoted'}">
+    <p style="color:red;">Ви вже голосували.</p>
+</div>
+
 <form action="/submit-vote" method="post">
-    <div>
-        <label for="candidate">Choose candidate:</label>
-        <select name="candidateId" id="candidate" required>
-            <option th:each="candidate : ${candidates}"
-                    th:value="${candidate.id}"
-                    th:text="${candidate.name}">Candidate Name</option>
-        </select>
-    </div>
-    <div>
-        <button type="submit">Vote</button>
-    </div>
+    <label for="candidate">Choose candidate:</label>
+    <select id="candidate" name="candidateId">
+        <option th:each="candidate : ${candidates}"
+                th:value="${candidate.id}"
+                th:text="${candidate.name}">
+        </option>
+    </select>
+    <button type="submit">Vote</button>
 </form>
 
-<div th:if="${param.error}">
-    <p style="color:red">You have already voted!</p>
+<!-- Для адміністратора -->
+<div sec:authorize="hasRole('ADMIN')">
+    <h2>Адмін-панель</h2>
+    <a href="/admin/results"><button>Переглянути результати</button></a>
+    <a href="/admin/candidate/add"><button>Додати кандидата</button></a>
 </div>
+
 </body>
 </html>
