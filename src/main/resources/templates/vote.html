@@ -1,23 +1,27 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Vote</title>
 </head>
 <body>
-<h1>Welcome to the Voting Page</h1>
-<p>Please cast your vote!</p>
+<h1>Vote for your candidate</h1>
 
-<!-- Форма для голосування -->
-<form action="/submit-vote" method="POST">
-    <label for="candidate">Select a candidate:</label>
-    <select id="candidate" name="candidate">
-        <option value="candidate1">Candidate 1</option>
-        <option value="candidate2">Candidate 2</option>
-        <option value="candidate3">Candidate 3</option>
-    </select>
-    <button type="submit">Submit Vote</button>
+<form action="/submit-vote" method="post">
+    <div>
+        <label for="candidate">Choose candidate:</label>
+        <select name="candidateId" id="candidate" required>
+            <option th:each="candidate : ${candidates}"
+                    th:value="${candidate.id}"
+                    th:text="${candidate.name}">Candidate Name</option>
+        </select>
+    </div>
+    <div>
+        <button type="submit">Vote</button>
+    </div>
 </form>
+
+<div th:if="${param.error}">
+    <p style="color:red">You have already voted!</p>
+</div>
 </body>
 </html>

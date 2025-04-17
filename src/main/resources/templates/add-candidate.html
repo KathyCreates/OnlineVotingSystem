@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Додати кандидата</title>
+</head>
+<body>
+<h1>Додати кандидата</h1>
+<form action="/admin/candidate/add" method="post">
+    <div>
+        <label for="name">Ім'я кандидата</label>
+        <input type="text" id="name" name="name" required />
+    </div>
+    <div>
+        <label for="description">Опис кандидата</label>
+        <input type="text" id="description" name="description" required />
+    </div>
+    <div>
+        <button type="submit">Додати</button>
+    </div>
+</form>
+</body>
+</html>

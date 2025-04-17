@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Results</title>
+</head>
+<body>
+<h1>Results</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Candidate Name</th>
+    <th>Votes</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="candidate : ${candidates}">
+    <td th:text="${candidate.name}"></td>
+    <td th:text="${${candidate.name}}"></td>  <!-- Виводимо кількість голосів -->
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
