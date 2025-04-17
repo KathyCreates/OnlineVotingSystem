@@ -4,36 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Vote</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-6">
 
-<h1>Vote for your candidate</h1>
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-xl">
+    <h1 class="text-2xl font-bold text-center text-indigo-600 mb-6">Vote for your candidate</h1>
 
-<!-- Повідомлення -->
-<div th:if="${param.added}">
-    <p style="color:green;">Кандидата успішно додано. Ви можете проголосувати.</p>
-</div>
+    <!-- Success Message -->
+    <div th:if="${param.added}" class="bg-green-100 text-green-800 p-3 rounded mb-4">
+        Candidate was successfully added. You can now vote.
+    </div>
 
-<div th:if="${param.error == 'alreadyVoted'}">
-    <p style="color:red;">Ви вже голосували.</p>
-</div>
+    <!-- Error Message -->
+    <div th:if="${param.error == 'alreadyVoted'}" class="bg-red-100 text-red-800 p-3 rounded mb-4">
+        You have already voted.
+    </div>
 
-<form action="/submit-vote" method="post">
-    <label for="candidate">Choose candidate:</label>
-    <select id="candidate" name="candidateId">
-        <option th:each="candidate : ${candidates}"
-                th:value="${candidate.id}"
-                th:text="${candidate.name}">
-        </option>
-    </select>
-    <button type="submit">Vote</button>
-</form>
+    <!-- Voting Form -->
+    <form action="/submit-vote" method="post" class="space-y-4">
+        <div>
+            <label for="candidate" class="block text-gray-700 font-semibold">Choose candidate:</label>
+            <select id="candidate" name="candidateId"
+                    class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <option th:each="candidate : ${candidates}"
+                        th:value="${candidate.id}"
+                        th:text="${candidate.name}">
+                </option>
+            </select>
+        </div>
 
-<!-- Для адміністратора -->
-<div sec:authorize="hasRole('ADMIN')">
-    <h2>Адмін-панель</h2>
-    <a href="/admin/results"><button>Переглянути результати</button></a>
-    <a href="/admin/candidate/add"><button>Додати кандидата</button></a>
+        <button type="submit"
+                class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">
+            Vote
+        </button>
+    </form>
+
+    <!-- Admin Panel -->
+    <div sec:authorize="hasRole('ADMIN')" class="mt-8 border-t pt-6">
+        <h2 class="text-lg font-semibold text-gray-700 mb-3">Admin Panel</h2>
+        <div class="flex flex-col sm:flex-row gap-4">
+            <a href="/admin/results"
+               class="bg-green-600 text-white px-4 py-2 rounded text-center hover:bg-green-700 transition">
+                View Results
+            </a>
+            <a href="/admin/candidate/add"
+               class="bg-blue-600 text-white px-4 py-2 rounded text-center hover:bg-blue-700 transition">
+                Add Candidate
+            </a>
+        </div>
+    </div>
 </div>
 
 </body>

@@ -1,23 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Додати кандидата</title>
+    <title>Add Candidate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-<h1>Додати кандидата</h1>
-<form action="/admin/candidate/add" method="post">
-    <div>
-        <label for="name">Ім'я кандидата</label>
-        <input type="text" id="name" name="name" required />
-    </div>
-    <div>
-        <label for="description">Опис кандидата</label>
-        <input type="text" id="description" name="description" required />
-    </div>
-    <div>
-        <button type="submit">Додати</button>
-    </div>
-</form>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+<div class="bg-white p-8 rounded-lg shadow-md w-full max-w-md">
+    <h2 class="text-2xl font-bold text-center text-indigo-600 mb-6">Add New Candidate</h2>
+
+    <form action="/admin/candidate/add" method="post" class="space-y-4">
+        <div>
+            <label for="name" class="block text-gray-700 font-semibold">Candidate Name</label>
+            <input type="text" id="name" name="name"
+                   class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   required />
+        </div>
+
+        <div>
+            <label for="description" class="block text-gray-700 font-semibold">Candidate Description</label>
+            <input type="text" id="description" name="description"
+                   class="w-full border border-gray-300 p-2 rounded focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                   required />
+        </div>
+
+        <div>
+            <button type="submit"
+                    class="w-full bg-indigo-600 text-white py-2 rounded hover:bg-indigo-700 transition">
+                Add Candidate
+            </button>
+        </div>
+    </form>
+
+    <p class="text-sm text-gray-500 text-center mt-6">
+        <a href="/vote" class="text-indigo-600 hover:underline">Back to voting</a>
+    </p>
+</div>
+
 </body>
 </html>
